@@ -2,6 +2,8 @@ import { IconType } from "react-icons";
 import clsx from "clsx";
 import { BsGithub, BsGoogle } from "react-icons/bs";
 import { useState } from "react";
+import { signIn } from "next-auth/react";
+import { toast } from "react-hot-toast";
 
 interface AuthSocialButtonProps {
   isLoading: boolean;
@@ -13,7 +15,18 @@ const AuthSocialButton: React.FC<AuthSocialButtonProps> = ({ isLoading }) => {
   const socialAction = (action: string) => {
     setIsLoading(true);
 
-    // NextAuth Social Sign IN
+    signIn(action, {
+      redirect: false,
+    })
+      .then((callback) => {
+        if (callback?.error) {
+          toast.error("invalid");
+          toast.error(callback?.error);
+        } else if (callback?.ok) {
+          toast.success("Login Success!");
+        }
+      })
+      .finally(() => setIsLoading(false));
   };
 
   return (
