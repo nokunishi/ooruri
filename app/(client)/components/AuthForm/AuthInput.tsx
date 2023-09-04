@@ -1,14 +1,14 @@
 "use client";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
-import Input from "../global/Input";
-import Button from "../global/Button";
+import Input from "../Input";
+import Button from "../Button";
 
-interface AuthInputProps {
+type AuthInputProps = {
   register: UseFormRegister<FieldValues>;
   variant: string;
   errors: FieldErrors;
   isLoading?: boolean;
-}
+};
 
 const AuthInput: React.FC<AuthInputProps> = ({
   register,

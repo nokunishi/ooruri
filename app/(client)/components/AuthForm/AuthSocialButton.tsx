@@ -5,9 +5,9 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { toast } from "react-hot-toast";
 
-interface AuthSocialButtonProps {
+type AuthSocialButtonProps = {
   isLoading: boolean;
-}
+};
 
 const AuthSocialButton: React.FC<AuthSocialButtonProps> = ({ isLoading }) => {
   const [currIsLoading, setIsLoading] = useState(isLoading);

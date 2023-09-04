@@ -1,17 +1,27 @@
 "use client";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
 import AuthInput from "./AuthInput";
 import AuthSocialButton from "./AuthSocialButton";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 type Variant = "SIGNIN" | "REGISTER";
 
 export default function AuthForm() {
+  const session = useSession();
+  const router = useRouter();
   const [variant, setVariant] = useState<Variant>("SIGNIN");
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (session?.status === "authenticated") {
+      router.push("/users");
+      console.log("Authenticated");
+    }
+  }, [session?.status, router]);
 
   const toggleVariant = useCallback(() => {
     if (variant === "SIGNIN") {
@@ -41,6 +51,12 @@ export default function AuthForm() {
     if (variant === "REGISTER") {
       axios
         .post("/api/register", data)
+        .then(() => {
+          toast.success("Registration Success!");
+        })
+        .then(() => {
+          setVariant("SIGNIN");
+        })
         .catch(() => toast.error("Something went wrong!"))
         .finally(() => setIsLoading(false));
     }
@@ -52,10 +68,11 @@ export default function AuthForm() {
       })
         .then((callback) => {
           if (callback?.error) {
-            toast.error("Invalid Credentials");
+            toast.error(callback?.error);
             // toast.error(callback?.error); // debugging
           } else if (callback?.ok) {
             toast.success("Login Success!");
+            router.push("/users");
           }
         })
         .finally(() => setIsLoading(false));
