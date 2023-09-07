@@ -1,6 +1,6 @@
 "use client";
 
-import useRoutes from "@/app/hooks/useRoutes";
+import useRoutes from "@/app/(server)/hooks/useRoutes";
 import { useState } from "react";
 import DesktopItem from "./DesktopItem";
 import { User } from "@prisma/client";

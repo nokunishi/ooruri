@@ -2,7 +2,6 @@
 
 import { User } from "@prisma/client";
 import UserBox from "./UserBox";
-import getUsers from "@/app/actions/getUsers";
 
 type UserListProps = {
   users: User[];

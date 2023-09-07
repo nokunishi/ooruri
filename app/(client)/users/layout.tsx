@@ -1,6 +1,6 @@
-import Sidebar from "../(client)/components/Sidebar/Sidebar";
-import UserList from "../(client)/components/User/UserList";
-import getUsers from "../actions/getUsers";
+import Sidebar from "../components/Sidebar/Sidebar";
+import UserList from "../components/User/UserList";
+import getUsers from "../../(server)/actions/getUsers";
 
 type UsersLayoutProps = {
   children: React.ReactNode;

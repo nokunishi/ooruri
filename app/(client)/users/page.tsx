@@ -1,4 +1,4 @@
-import EmptyState from "../(client)/components/EmptyState";
+import EmptyState from "../components/EmptyState";
 
 export default function Users() {
   return (
